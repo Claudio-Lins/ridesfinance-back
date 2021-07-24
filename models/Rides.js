@@ -18,6 +18,6 @@ const Ride = db.define('rides', {
     }
 })
 
-Ride.sync()
+// Ride.sync()
 
 module.exports = Ride

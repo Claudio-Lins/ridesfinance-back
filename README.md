@@ -20,10 +20,7 @@ Acessar o projeto no vavegador
 
 DATABASE MYSQL
 Instalar MYSQL
-
-Verificar a versão do MySQL instalado na maquina
-### mysql -v
-### mysql -u root -p
+### XAMMP
 
 Instalar o Workbench
 
