@@ -15,9 +15,21 @@ const Ride = db.define('rides', {
     amount: {
         type: Sequelize.DOUBLE,
         allowNull: false
+    },
+    dateRide: {
+        type: Sequelize.DATE,
+        allowNull: false
+    },
+    fee: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
     }
 })
 
+// Verifica se existe a tabela, não exitindo a tabela é criado a mesma
 // Ride.sync()
+
+// Verifica as alterações da tabela e realiza a mesma
+// Ride.sync({ alter: true })
 
 module.exports = Ride

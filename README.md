@@ -33,3 +33,8 @@ O Sequelize é uma biblioteca JavaScript que facilita o gerenciamento de uma Ban
 
 Install drive
 ### npm install --save mysql2
+
+CORS
+https://www.npmjs.com/package/cors
+Permit acesso a uma API
+### npm install --save cors
