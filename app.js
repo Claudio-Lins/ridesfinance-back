@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express();
 
 // const db = require('./models/db')
-const Ride = require('./models/Rides')
+const Lancamentos = require('./models/Lancamentos')
 
 app.use(express.json())
 
@@ -18,50 +18,63 @@ app.use((req, res, next) => {
 })
 
 
-app.get('/listar/:dia/:mes/:ano', async (req, res) => {
-    let dia = new Number(req.params.dia)
+app.get('/listar/:mes/:ano', async (req, res) => {
     let mes = new Number(req.params.mes)
     let ano = new Number(req.params.ano)
     // console.log("Dia: " + dia + " mês: " + mes)
-    const date = new Date(ano + '/' + mes + '/' + dia)
+    const date = new Date(ano + '/' + mes)
     let primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1)
     let ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0)
     // console.log('Primeiro dia do mês ' + primeiroDia)
     // console.log('Último dia do mês ' + ultimoDia)
 
-    const rides = await Ride.findAll({
-        order: [['dateRide', 'ASC']],
+    const lancamentos = await Lancamentos.findAll({
+        order: [['dataPagamento', 'DESC']],
         where: {
-            "dateRide": {
+            "dataPagamento": {
                 [Op.between]: [primeiroDia, ultimoDia],
             }
         }
     })
 
-    const amountMonth = await Ride.sum("amount", {
+    const valorPagamento = await Lancamentos.sum("valor", {
         where: {
-            "dateRide": {
+            tipo: '1',
+            "dataPagamento": {
                 [Op.between]: [primeiroDia, ultimoDia],
             }
         }
     })
+    const valorRecebido = await Lancamentos.sum("valor", {
+        where: {
+            tipo: '2',
+            "dataPagamento": {
+                [Op.between]: [primeiroDia, ultimoDia],
+            }
+        }
+    })
+
+    const saldo = new Number(valorRecebido) - new Number(valorPagamento)
+
     return res.json({
         erro: false,
-        rides,
-        amountMonth
+        lancamentos,
+        valorPagamento,
+        valorRecebido,
+        saldo
     })
 })
 
-app.post('/income', async (req, res) => {
-    await Ride.create(req.body).then(function () {
+app.post('/cadastrar', async (req, res) => {
+    await Lancamentos.create(req.body).then(function () {
         return res.json({
             error: false,
-            mensagem: "Ride cadastrado com SUCESSO!"
+            mensagem: "Lançamento cadastrado com SUCESSO!"
         })
     }).catch(function () {
         return res.status(400).json({
             error: true,
-            mensagem: "ERROR: Ride não cadastrado com SUCESSO!"
+            mensagem: "ERROR: Lançamento não cadastrado com SUCESSO!"
         })
     })
 })

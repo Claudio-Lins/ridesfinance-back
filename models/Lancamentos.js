@@ -1,35 +1,39 @@
 const Sequelize = require('sequelize')
 const db = require('./db')
 
-const Ride = db.define('rides', {
+const Lancamento = db.define('lancamentos', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    name: {
+    nome: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    amount: {
+    valor: {
         type: Sequelize.DOUBLE,
         allowNull: false
     },
-    dateRide: {
+    tipo: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },//Tipo 1: Despesa Tipo 2: Recebendo
+    situacao: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },//Tipo 1: Pago Tipo 2: Pendente
+    dataPagamento: {
         type: Sequelize.DATE,
-        allowNull: false
-    },
-    fee: {
-        type: Sequelize.DOUBLE,
         allowNull: false
     }
 })
 
 // Verifica se existe a tabela, não exitindo a tabela é criado a mesma
-// Ride.sync()
+// Lancamento.sync()
 
 // Verifica as alterações da tabela e realiza a mesma
-// Ride.sync({ alter: true })
+// Lancamento.sync({ alter: true })
 
-module.exports = Ride
+module.exports = Lancamento

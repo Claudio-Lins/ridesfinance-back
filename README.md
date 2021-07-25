@@ -17,6 +17,11 @@ Para rodar o projeto
 Acessar o projeto no vavegador
 ### http://localhost:8080
 
+DATABASE AMEM
+### password: Ride$Finance
+### Usuário: cz3ub8fy_rides
+### Database: cz3ub8fy_rides
+### MySQL Remote Host: lhcp3073.webapps.net
 
 DATABASE MYSQL
 Instalar MYSQL
