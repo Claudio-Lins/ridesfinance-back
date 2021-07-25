@@ -31,7 +31,7 @@ app.get("/listar/:mes/:ano", async (req, res) => {
   // console.log('Último dia do mês ' + ultimoDia)
 
   const lancamentos = await Lancamentos.findAll({
-    order: [["dataPagamento", "DESC"]],
+    order: [["dataPagamento", "ASC"]],
     where: {
       dataPagamento: {
         [Op.between]: [primeiroDia, ultimoDia],
